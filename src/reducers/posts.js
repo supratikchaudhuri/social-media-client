@@ -1,7 +1,7 @@
 const reducer = (posts = [], action) => {
     switch (action.type) {
         case "FETCH_ALL":
-            return action.payload;
+            return action.payload;//returned in components/posts.js using useselector
         case "CREATE":
             return [...posts, action.payload];
         case "UPDATE":
@@ -15,4 +15,4 @@ const reducer = (posts = [], action) => {
     }
 }
 
-export default reducer;
+export default reducer;//imported in reducers/index.js

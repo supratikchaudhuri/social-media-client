@@ -10,7 +10,7 @@ import {deletePost, likePost} from "../../../actions/posts.js";
 
 function Post({post, setCurrentId}) {
     const classes = useStyles();
-    console.log(post);
+    // console.log(post);
 
     const dispatch = useDispatch();
 
