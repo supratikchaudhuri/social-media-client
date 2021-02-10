@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import {Container, AppBar, Typography, Grow, Grid} from "@material-ui/core";
+import {PostContextProvider} from "./context/postContext.js"
 import blog from "./Images/blog.png"
 import Posts from "./components/Posts/Posts";
 import Form from "./components/Form/Form"
@@ -13,13 +14,12 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const [currentId, setCurrentId] = useState(null)
-
   useEffect(() => {
     dispatch(getPosts()); 
   }, [dispatch])  //[currentId] causes problem in form but not in there
 
   return (
+    <PostContextProvider>
     <Container maxWidth="lg">
       <AppBar className={classes.appBar} position="static" color="inherit">
         <Typography className={classes.heading} variant="h2" align="center">Blog</Typography>
@@ -30,16 +30,17 @@ function App() {
         <Container>
           <Grid className={classes.mainContainer} container justify="space-between" alignItems="stretch" spacing={4}>
             <Grid item xs={12} sm={7}>
-              <Posts setCurrentId={setCurrentId}/>
+              <Posts/>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Form currentId={currentId} setCurrentId={setCurrentId}/>
+              <Form/>
             </Grid>
           </Grid>
         </Container>
       </Grow>
 
     </Container>
+    </PostContextProvider>
   );
 }
 

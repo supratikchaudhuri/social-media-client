@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import useStyles from "./styles";
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@material-ui/core/';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
@@ -7,8 +7,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import moment from "moment";
 import {useDispatch} from "react-redux";
 import {deletePost, likePost} from "../../../actions/posts.js";
+import {PostContext} from "../../../context/postContext.js"
 
-function Post({post, setCurrentId}) {
+function Post({post}) {
+
+    const {idSetter} = useContext(PostContext)
+
     const classes = useStyles();
     // console.log(post);
 
@@ -22,7 +26,7 @@ function Post({post, setCurrentId}) {
                 <Typography variant="body2">{moment(post.createdAt).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <Button style={{color: "white"}} size="small" onClick={() => {setCurrentId(post._id)}}>
+                <Button style={{color: "white"}} size="small" onClick={() => {idSetter(post._id)}}>
                 <MoreHorizIcon fontSize="default"/>
                 </Button>
             </div>
