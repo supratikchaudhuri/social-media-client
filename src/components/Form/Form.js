@@ -1,17 +1,20 @@
-import React from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import useStyles from "./styles";
 import {Typography, Paper, TextField, Button} from "@material-ui/core"
-import { useState } from 'react';
 import FileBase from "react-file-base64"
 import {useDispatch} from "react-redux";
 import {createPost, updatePost} from "../../actions/posts.js"
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import {PostContext} from "../../context/postContext.js"
 
-function Form({currentId, setCurrentId}) {
+function Form() {
+
+    const {currentId} = useContext(PostContext)
+    const {idSetter} = useContext(PostContext)
+
     const classes = useStyles(); 
     const post = useSelector((state) => currentId ? state.posts.find(p => p._id === currentId) : null);
-
+    
     const emptyPost = {creator: '', title: '', message: '', tags: "", selectedFile: ''}
     const [postData, setPostData] = useState(emptyPost);
     const dispatch = useDispatch();
@@ -32,7 +35,7 @@ function Form({currentId, setCurrentId}) {
     }
 
     const clear = () => {
-        setCurrentId(0)
+        idSetter(0)
         setPostData(emptyPost);
     }
     
