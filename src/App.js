@@ -1,46 +1,29 @@
-import { useEffect } from "react";
-import {Container, AppBar, Typography, Grow, Grid} from "@material-ui/core";
+import React from "react";
+import {BrowserRouter, Switch, Route} from "react-router-dom"
 import {PostContextProvider} from "./context/postContext.js"
-import blog from "./Images/blog.png"
-import Posts from "./components/Posts/Posts";
-import Form from "./components/Form/Form"
-import useStyles from "./styles";
-import {useDispatch} from "react-redux"
-import {getPosts} from "./actions/posts.js"
+
+import {Container} from "@material-ui/core";
+import Navbar from "./components/Navbar/Navbar"
+import Home from "./components/Home/Home.js";
+import Auth from "./components/Auth/Auth.js";
 
 function App() {
-
-  const classes = useStyles();
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getPosts()); 
-  }, [dispatch])  //[currentId] causes problem in form but not in there
-
   return (
+    <BrowserRouter>
     <PostContextProvider>
-    <Container maxWidth="lg">
-      <AppBar className={classes.appBar} position="static" color="inherit">
-        <Typography className={classes.heading} variant="h2" align="center">Blog</Typography>
-        <img className={classes.image} src={blog} alt="memories" height="60"/>
-      </AppBar>
+      {/* <Auth/> */}
+      <Container maxWidth="lg">
+        <Navbar/>
 
-      <Grow in>
-        <Container>
-          <Grid className={classes.mainContainer} container justify="space-between" alignItems="stretch" spacing={4}>
-            <Grid item xs={12} sm={7}>
-              <Posts/>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Form/>
-            </Grid>
-          </Grid>
-        </Container>
-      </Grow>
+        <Switch>
+          <Route path="/" exact component={Home}/>
+          <Route path="/auth" exact component={Auth}/>
+        </Switch>
 
-    </Container>
-    </PostContextProvider>
+      </Container>
+
+      </PostContextProvider>
+    </BrowserRouter>
   );
 }
 
