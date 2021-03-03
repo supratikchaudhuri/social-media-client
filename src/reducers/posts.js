@@ -1,7 +1,7 @@
 const reducer = (posts = [], action) => {
     switch (action.type) {
         case "FETCH_ALL":
-            return action.payload;//returned in components/posts.js using useselector
+            return action.payload;//returned in glbal store
         case "CREATE":
             return [...posts, action.payload];
         case "UPDATE":

@@ -6,7 +6,7 @@ import {Grid, CircularProgress} from "@material-ui/core";
 
 function Posts() {
     const classes = useStyles();
-    const posts = useSelector((state) => state.posts)
+    const posts = useSelector((state) => state.posts)//fetched from golbal store
     console.log(posts);
     return (
         !posts.length ? <CircularProgress/> : (
